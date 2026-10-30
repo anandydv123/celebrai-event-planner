@@ -1,0 +1,587 @@
+project:
+  name: "CelebrAI"
+  product_type: "AI-powered Celebration & Event Planner"
+  challenge_number: 5
+  challenge_vertical: "Celebration & Event Planner"
+  tagline: "Every Celebration, Thoughtfully Planned"
+  default_currency: "INR"
+  repository_constraints:
+    visibility: "public"
+    branch_count: 1
+    maximum_size_mb: 10
+    attempts_allowed: 3
+
+master_prompt: |
+  You are a senior product manager, software architect, full-stack engineer,
+  AI engineer, UX/UI designer, security engineer, and QA specialist.
+
+  Your task is to inspect, build, test, document, and prepare CelebrAI, a
+  complete AI-powered Celebration & Event Planner, for Challenge 5:
+  Celebration & Event Planner.
+
+  Treat this YAML file as the project requirements and acceptance checklist.
+  Do not merely summarize these requirements or return a plan. Inspect the
+  existing project first, then implement the actual application in the
+  available workspace. Preserve working code and the current architecture
+  wherever practical. Do not claim a feature, test, deployment, or GitHub
+  operation succeeded unless it was actually verified.
+
+  ============================================================
+  1. PRODUCT GOAL AND PROBLEM STATEMENT
+  ============================================================
+
+  Build a practical event-planning application that helps users plan a
+  celebration from initial idea through event-day execution. It must combine
+  personalized AI suggestions with reliable application logic and working
+  event-management tools. It must not be only a chatbot or static dashboard.
+
+  Supported event types:
+  - Birthday Party
+  - Wedding
+  - Anniversary
+  - Engagement
+  - Graduation Party
+  - Baby Shower
+  - Festival Celebration
+  - Family Gathering
+  - Corporate Event
+  - Custom Event
+
+  Core user journey:
+  Create Event -> Enter Event Details -> Manage Guests and RSVP ->
+  Choose Menu -> Calculate Food Quantities -> Generate AI Plan ->
+  Review Budget -> Manage Venue, Decoration, Vendors and Shopping ->
+  Manage Checklist and Timeline -> Review Event Progress.
+
+  Example scenario:
+  A user plans a birthday party in Patna for 50 people with a maximum budget
+  of INR 20,000, an indoor venue, vegetarian food, a chocolate cake, and a
+  preferred decoration theme. The application must use those actual inputs
+  to produce a relevant plan. The budget, quantities, guest estimates, and
+  checklist must be calculated or validated by application logic wherever
+  appropriate, not blindly trusted from an AI response.
+
+  ============================================================
+  2. DOCUMENTATION-FIRST VIBE-CODING WORKFLOW
+  ============================================================
+
+  First inspect the existing files, package scripts, dependencies, framework,
+  environment, and available integrations. Do not overwrite working files
+  without understanding them.
+
+  Create and maintain these project documents:
+  - PRD.md: problem, value proposition, users, user journeys, requirements,
+    screens, data, integrations, states, MVP scope, assumptions and success criteria.
+  - DESIGN.md: visual direction, colors, typography, spacing, components,
+    forms, navigation, responsive behavior, interactions and accessibility.
+  - ARCHITECTURE.md: stack, component structure, data flow, persistence,
+    API/AI architecture, environment configuration, security, testing and deployment.
+  - AGENTS.md: code conventions, component reuse, dependency discipline,
+    type safety, error handling, security, testing, documentation and Git rules.
+  - README.md: project overview, chosen vertical, problem, approach, how it
+    works, assumptions, setup, environment variables, testing and limitations.
+  - DATABASE.md when a database is used or a detailed data model is needed.
+  - API.md when application APIs or external integrations exist.
+
+  Plan implementation in small phases, but do not stop after documentation.
+  Build the actual application and keep it runnable after each phase.
+  Avoid unnecessary features, dependencies, services, microservices, and
+  premature optimization. Clearly document assumptions and limitations.
+
+  ============================================================
+  3. DESIGN AND USER EXPERIENCE
+  ============================================================
+
+  Build a polished, premium, responsive event-planning SaaS interface.
+
+  Visual direction:
+  - Warm ivory or neutral background.
+  - Deep plum or violet primary color.
+  - Muted gold accent.
+  - High-contrast charcoal text.
+  - Readable typography, consistent spacing and clear hierarchy.
+  - Refined cards, borders and subtle shadows.
+  - Restrained motion and responsive layouts.
+
+  Avoid generic AI-generated dashboard styling, clutter, excessive gradients,
+  excessive glassmorphism, decorative elements without purpose, and dead buttons.
+
+  Main navigation:
+  - Overview
+  - Create Event
+  - My Events
+  - Guest Management
+  - Food & Catering
+  - Budget Planner
+  - Shopping List
+  - Venue & Decoration
+  - Vendors
+  - Checklist & Timeline
+  - Recommendations
+  - Settings
+
+  Every visible control must have a meaningful behavior. Provide desktop,
+  tablet, and mobile layouts; loading, empty, success, and error states;
+  accessible labels; visible focus indicators; and clear feedback.
+
+  ============================================================
+  4. EVENT SETUP AND EVENT MANAGEMENT
+  ============================================================
+
+  Collect:
+  - Event name and type.
+  - Date, start time, end time and duration when known.
+  - City/location.
+  - Total invited guests and guest categories where relevant.
+  - Budget and whether it is strict or flexible.
+  - Indoor/outdoor preference.
+  - Theme and style.
+  - Food and dietary preferences.
+  - Accessibility requirements.
+  - Venue, entertainment and photography preferences.
+  - Preparation time and additional constraints.
+  - Existing bookings, purchases and arrangements.
+
+  Implement create, view, edit, search, filter, sort, duplicate where sensible,
+  and delete operations. Confirm before destructive actions. Show event status,
+  upcoming events, planning progress, pending tasks and budget summaries.
+
+  Do not assume cultural, religious, dietary or personal preferences from the
+  event type or location. Ask when a missing detail materially affects the plan.
+
+  ============================================================
+  5. GUEST MANAGEMENT AND RSVP
+  ============================================================
+
+  Support individual guest records and aggregate guest-count planning.
+
+  Guest information may include:
+  - Name, only when needed.
+  - Adult/child/senior category when relevant.
+  - Invitation status.
+  - RSVP status: confirmed, declined, or pending.
+  - Optional dietary/accessibility notes.
+  - Optional notes relevant to the event.
+
+  Show separate totals for invited, confirmed, declined and pending guests.
+  Never treat pending guests as confirmed. Validate that guest-category totals
+  agree with the entered total; ask the user to resolve inconsistencies instead
+  of silently changing counts.
+
+  Let users set a catering buffer. Keep confirmed attendance separate from
+  estimated attendance and state any assumptions used for planning.
+
+  Collect only information needed for event planning and handle it responsibly.
+
+  ============================================================
+  6. FOOD, CATERING AND QUANTITY CALCULATOR
+  ============================================================
+
+  This is a core feature. Create a functional food-planning module for
+  vegetarian, non-vegetarian, or mixed menus according to user preference.
+
+  Support snacks, starters, main courses, rice, breads, desserts, birthday cake,
+  beverages, water and custom dishes. Respect explicit allergies and dietary
+  requirements.
+
+  For each menu item, track:
+  - Item name and category.
+  - Applicable guest categories.
+  - Portion size per applicable guest.
+  - Unit of measure.
+  - Number of applicable guests.
+  - Adjustment/buffer factor.
+  - Calculated quantity.
+  - Estimated unit cost and total cost.
+  - User-adjusted quantity and notes.
+
+  Use deterministic application code for arithmetic. A basic calculation is:
+  required quantity = applicable guests x serving size per guest x adjustment factor.
+  Ensure units are compatible and clearly defined.
+
+  Distinguish:
+  - Raw ingredient quantity from prepared-food quantity.
+  - Kilograms from litres and individual portions.
+  - A whole cake from cake servings.
+  - Menu-item quantities from recipe ingredient quantities.
+
+  Do not count an ingredient twice in a consolidated shopping list. Do not
+  invent precise recipe quantities if recipe or serving assumptions are missing.
+  Allow users to edit portion assumptions and recalculate when guests or menus change.
+
+  Label results as estimates, show assumptions, and warn when key serving data is
+  missing. Do not hardcode one universal food quantity for every event.
+
+  ============================================================
+  7. BIRTHDAY PARTY PLANNER
+  ============================================================
+
+  Provide a dedicated birthday-planning flow. Collect optional birthday-person
+  name and age, guest count, date, location, budget, theme, venue type, cake
+  preference, food preferences, decoration style, entertainment, and return-gift
+  requirements.
+
+  Generate:
+  - Three suitable birthday concepts or themes.
+  - Decoration plan and material estimates.
+  - Cake flavour and editable serving/quantity estimate.
+  - Food menu and calculated quantity estimates.
+  - Venue and seating requirements.
+  - Entertainment and game suggestions.
+  - Invitation text.
+  - Shopping list.
+  - Preparation checklist.
+  - Event-day schedule.
+  - Budget breakdown and cost-saving alternatives.
+
+  All quantity and budget assumptions must be visible and editable. Do not
+  present example values as confirmed market prices or vendor quotations.
+
+  ============================================================
+  8. VENUE, SEATING AND DECORATION
+  ============================================================
+
+  Venue planning should consider location, capacity, indoor/outdoor preference,
+  budget, accessibility, parking, seating style and weather contingency where relevant.
+
+  Provide venue-selection criteria, estimated seating needs, table/chair planning,
+  stage or cake-cutting area, and a preparation checklist. Do not invent actual
+  venue availability, addresses, prices or booking confirmations.
+
+  Decoration planning may include backdrop, balloons, lighting, entrance, stage,
+  table decoration and theme-related materials. Show estimated quantities and
+  costs with assumptions. Track items already purchased to avoid duplicate recommendations.
+
+  ============================================================
+  9. BUDGET AND EXPENSE MANAGEMENT
+  ============================================================
+
+  Support total budget, estimated expenses, actual expenses, contingency reserve,
+  user-entered vendor quotations, paid/unpaid status and remaining budget.
+
+  Example categories:
+  venue, food, cake, decoration, entertainment, photography, transport, gifts,
+  staff and miscellaneous.
+
+  Calculate totals and remaining balance using application code, not AI arithmetic.
+  Clearly distinguish:
+  - Estimated costs.
+  - User-entered quotations.
+  - Actual expenses.
+  - Paid amounts.
+  - Remaining budget.
+
+  If a strict budget is exceeded, show the overage and revise optional suggestions
+  where possible. Never hide overspending or claim a plan fits the budget when
+  the calculated total does not.
+
+  ============================================================
+  10. SHOPPING LIST AND VENDORS
+  ============================================================
+
+  Shopping list items should include name, category, quantity, unit, estimated
+  cost, priority, purchase status and notes. Support add, edit, delete, search,
+  filter, sort and mark-as-purchased actions.
+
+  Combine quantities only when units and item identity are compatible. Preserve
+  distinctions between raw ingredients, prepared food and retail items.
+
+  Vendor management may include caterers, decorators, cake shops, venues,
+  photographers, entertainment and transport. Store only details supplied by
+  the user or returned by a genuinely integrated, verified data source.
+
+  Never invent vendor contacts, quotations, availability, booking or payment status.
+
+  ============================================================
+  11. INVITATIONS, CHECKLIST AND EVENT-DAY TIMELINE
+  ============================================================
+
+  Generate editable invitation text using event details, language, tone, date,
+  time and location. Provide working copy-to-clipboard behavior. Do not claim
+  messages were sent unless a real messaging integration completed the action.
+
+  Checklist tasks should support create, edit, complete, reopen, delete, deadline,
+  priority, category, filtering and overdue states. Update event progress from
+  saved task data.
+
+  Generate an event-day run sheet with activity, start time, end time, responsible
+  person when supplied, required materials and notes. Respect event duration and
+  detect inappropriate overlaps. Allow users to edit the schedule.
+
+  ============================================================
+  12. GEMINI AI INTEGRATION
+  ============================================================
+
+  Use the currently supported official Google Gemini SDK and configuration
+  appropriate to the environment. Inspect available capabilities first.
+
+  Use Gemini for natural-language generation and contextual recommendations:
+  event concepts, themes, menu ideas, decoration suggestions, task suggestions,
+  invitation text and cost-saving ideas.
+
+  Use deterministic application code for guest totals, RSVP counts, food quantity
+  arithmetic, budget totals, task progress, shopping aggregation, date validation
+  and schedule checks.
+
+  Validate inputs before requests and validate structured model output before use.
+  Handle missing credentials, timeouts, network failures, rate limits and malformed
+  responses. Show useful errors and allow retry. Prevent accidental duplicate
+  submissions and unnecessary repeated calls.
+
+  Never hardcode or commit API keys. Keep private credentials out of client-side
+  bundles and use secure server-side handling where supported. Do not expose
+  internal errors, secrets or hidden chain-of-thought. Do not fake AI success.
+  The app must remain navigable if AI is unavailable.
+
+  ============================================================
+  13. PERSISTENCE AND DATA INTEGRITY
+  ============================================================
+
+  Inspect the existing architecture before choosing storage. Browser localStorage
+  may be acceptable for a single-browser MVP, but document its limitations and
+  do not claim cross-device sync. Use a database only if justified; enforce
+  appropriate data ownership and access controls if accounts/shared data exist.
+
+  Persist events, guest/RSVP records, menus and quantity assumptions, expenses,
+  shopping items, vendors, tasks, schedules and user preferences as appropriate.
+
+  Use stable IDs, validate loaded data, handle malformed/unavailable storage,
+  and prevent changes to one event from unintentionally affecting another.
+
+  ============================================================
+  14. THE SIX MANDATORY EVALUATION PARAMETERS
+  ============================================================
+
+  These six parameters are mandatory. Implement each one, test it where possible,
+  and provide evidence in README.md. Merely listing the parameter names is not enough.
+
+  A. CODE QUALITY
+  - Use modular, reusable components and a clear folder structure.
+  - Use TypeScript types, consistent naming and focused functions.
+  - Separate business logic from UI.
+  - Avoid duplicate logic, dead code and unnecessary dependencies.
+  - Run available linting, type checks and production build.
+  - Report actual results.
+
+  B. SECURITY
+  - Never hardcode or commit secrets.
+  - Validate inputs and safely render user-generated content.
+  - Use server-side authorization when applicable.
+  - Avoid unnecessary personal-data collection.
+  - Avoid leaking secrets or sensitive data in errors/logs.
+  - Review AI integration and storage risks.
+  - Document unresolved risks honestly.
+
+  C. EFFICIENCY
+  - Keep dependencies lightweight.
+  - Avoid unnecessary AI/network calls and repeated calculations.
+  - Avoid unnecessary rerenders and expensive work during every render.
+  - Keep startup and interactions responsive.
+  - Inspect bundle/dependency size where tooling permits.
+  - Do not introduce premature optimization or unnecessary infrastructure.
+
+  D. TESTING
+  - Create and run tests for critical business logic and user journeys.
+  - Test guest-count consistency, RSVP counts, food quantities and units,
+    budget limits, overspending, shopping-list aggregation, invalid dates,
+    schedule overlaps, task operations, persistence, and AI failures.
+  - Test empty, loading, success and error states.
+  - Test responsive behavior and important accessibility interactions.
+  - Investigate failures rather than hiding them.
+  - Never claim a test passed unless it was actually executed.
+
+  E. ACCESSIBILITY
+  - Use semantic HTML and correctly associated form labels.
+  - Support keyboard navigation and visible focus.
+  - Provide accessible names for icon-only controls.
+  - Use sufficient contrast and do not communicate status by color alone.
+  - Show clear validation and error messages.
+  - Make dialogs keyboard accessible.
+  - Respect reduced-motion preferences.
+  - Test important flows and document remaining accessibility gaps.
+  - Do not claim certification without a suitable audit.
+
+  F. PROBLEM STATEMENT ALIGNMENT
+  - Keep the product focused on Celebration & Event Planner.
+  - Make the AI use actual event type, guest count, budget, date, location,
+    preferences and constraints.
+  - Ensure relevant changes in inputs produce meaningful changes in plans.
+  - Keep guest, catering, budget, shopping and task information consistent.
+  - Distinguish user-provided facts, calculations, estimates and AI suggestions.
+  - Test multiple event types, budgets, guest counts and preparation windows.
+  - Never present invented availability or prices as verified facts.
+
+  ============================================================
+  15. TESTING, DEBUGGING AND CODE REVIEW
+  ============================================================
+
+  Test:
+  - Event creation, editing and deletion.
+  - Guest-category validation and RSVP counts.
+  - Food calculations and unit compatibility.
+  - Budget totals and strict-budget warnings.
+  - Shopping list merging and purchase status.
+  - Task completion and progress.
+  - Date validation and schedule overlaps.
+  - Data persistence after refresh.
+  - Missing Gemini configuration and failed AI requests.
+  - Empty states, mobile navigation and keyboard operation.
+
+  Run available unit tests, integration tests, linting, type checking and build.
+  When a bug occurs, reproduce it, inspect relevant code, identify root cause,
+  apply the smallest correct fix, retest and check for regressions. Do not randomly
+  patch code, remove tests, or weaken validation to make checks pass.
+
+  Perform a focused code review and security review. Fix clearly justified issues
+  without unrelated rewrites. Report tests created, tests executed, passed/failed
+  cases, bugs found, fixes and remaining risks.
+
+  ============================================================
+  16. GITHUB SUBMISSION RULES
+  ============================================================
+
+  Prepare the repository to comply with:
+  - Public GitHub repository.
+  - Exactly one branch.
+  - Repository size strictly below 10 MB.
+  - Complete source code and README.md.
+  - Appropriate .gitignore.
+  - No committed API keys or secret .env files.
+  - No node_modules, unnecessary binaries or unneeded generated artifacts.
+
+  Verify repository size and branch count before reporting compliance. Do not
+  create extra branches. Do not claim a push succeeded unless it actually did.
+  The challenge allows at most three attempts, so verify functionality and submission
+  constraints before submitting.
+
+  ============================================================
+  17. IMPLEMENTATION PHASES
+  ============================================================
+
+  Phase 1: Inspect project, create documentation, establish design system and navigation.
+  Phase 2: Implement event creation, event management and persistence.
+  Phase 3: Implement guest management, RSVP and food quantity calculations.
+  Phase 4: Integrate Gemini and generate contextual event plans.
+  Phase 5: Implement budget, shopping list, vendors, checklist and timeline.
+  Phase 6: Verify all six evaluation parameters and test critical user journeys.
+  Phase 7: Perform code review, security review, accessibility checks and production audit.
+  Phase 8: Complete README, verify repository constraints and prepare submission.
+
+  Keep the application runnable after each phase. Prioritize the complete core
+  user journey over optional features if time or environment is limited.
+
+  ============================================================
+  18. FINAL PRODUCTION AUDIT AND REQUIRED REPORT
+  ============================================================
+
+  Do not assume something works just because code exists. Verify functionality
+  wherever possible and issue one final verdict:
+  READY, READY WITH WARNINGS, or NOT READY.
+
+  At completion, report:
+  1. Features actually implemented.
+  2. Files created or changed.
+  3. Gemini integration status.
+  4. Persistence strategy and limitations.
+  5. Evidence for each of the six evaluation parameters.
+  6. Tests actually executed and their results.
+  7. Production build status.
+  8. Repository size and branch status, only if verified.
+  9. Remaining bugs, limitations and manual steps.
+  10. Final readiness verdict.
+
+  Start by inspecting the existing project. Then create/update the required
+  documentation and implement the real application. Do not stop at a plan,
+  a static mockup, or documentation alone.
+
+acceptance_criteria:
+  - "Application runs in the available environment."
+  - "Challenge vertical is Celebration & Event Planner."
+  - "Core event creation and management work."
+  - "Guest and RSVP counts are consistent."
+  - "Food quantity calculations use explicit, editable assumptions."
+  - "Budget calculations are deterministic and overspending is visible."
+  - "Shopping, checklist, and timeline features work."
+  - "Gemini integration works when securely configured."
+  - "The app handles AI failure without pretending success."
+  - "All six evaluation parameters have implementation evidence."
+  - "Tests are reported honestly and failures are not hidden."
+  - "README explains vertical, approach, how it works, and assumptions."
+  - "Repository constraints are verified before submission."
+
+documentation:
+  required:
+    - "README.md"
+    - "PRD.md"
+    - "DESIGN.md"
+    - "ARCHITECTURE.md"
+    - "AGENTS.md"
+  conditional:
+    - "DATABASE.md"
+    - "API.md"
+  README_must_explain:
+    - "Chosen challenge vertical"
+    - "Problem statement and approach"
+    - "How the solution works"
+    - "Context-aware decision logic"
+    - "Assumptions and limitations"
+    - "Setup and environment variables"
+    - "Testing instructions and actual results"
+    - "Evidence for all six evaluation parameters"
+
+evaluation_parameters:
+  code_quality:
+    requirements:
+      - "Modular and reusable code"
+      - "Type safety and clear naming"
+      - "Maintainable architecture"
+      - "Lint, type-check, and build verification"
+  security:
+    requirements:
+      - "Secret management"
+      - "Input validation and safe rendering"
+      - "Appropriate authorization where applicable"
+      - "Privacy-conscious handling and honest risk reporting"
+  efficiency:
+    requirements:
+      - "Lightweight dependencies"
+      - "No unnecessary API calls or rerenders"
+      - "Efficient calculations"
+      - "Performance inspection where tooling permits"
+  testing:
+    requirements:
+      - "Unit and integration tests where practical"
+      - "Core journey and edge-case testing"
+      - "AI, storage, calculation, and error-state testing"
+      - "Only report tests actually executed"
+  accessibility:
+    requirements:
+      - "Semantic HTML and labelled controls"
+      - "Keyboard navigation and visible focus"
+      - "Contrast, accessible names, and clear errors"
+      - "Responsive and reduced-motion-aware UI"
+  problem_statement_alignment:
+    requirements:
+      - "Features directly support event planning"
+      - "Personalization uses actual user context"
+      - "Connected modules remain consistent"
+      - "Estimates and unverified information are clearly labelled"
+
+github_submission:
+  visibility: "public"
+  branch_count: 1
+  repository_size: "strictly less than 10 MB"
+  maximum_attempts: 3
+  must_include:
+    - "Complete project source"
+    - "README.md"
+    - ".gitignore"
+  must_exclude:
+    - "Committed API keys or secret .env files"
+    - "node_modules"
+    - "Unnecessary binaries and generated artifacts"
+  verification:
+    - "Check repository size."
+    - "Check branch count."
+    - "Check tracked files for secrets."
+    - "Do not claim a push or deployment succeeded unless verified."
